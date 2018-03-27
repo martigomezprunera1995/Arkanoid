@@ -8,6 +8,10 @@ void main()
 	//X del jugador
 	int x;
 
+	//X y Y de la pelota
+	int xBall;
+	int yBall;
+
 	//Bool finalJuego
 	bool final = false;
 
@@ -15,7 +19,7 @@ void main()
 	while (final!=true)
 	{
 		//Limpiamos tablero
-		Sleep(100);
+		Sleep(200);
 		system("cls");
 
 		//Recogemos posicion
@@ -23,6 +27,8 @@ void main()
 
 		//Printamos tablero
 		b1.printTablero();
+
+		//Control teclas
 		if (GetAsyncKeyState(VK_ESCAPE))
 		{
 			final = true;
@@ -35,5 +41,13 @@ void main()
 		{
 			b1.newPosRight();
 		}
+
+		//Recogemos pos de la pelota
+		xBall = b1.pos_xBall;
+		yBall = b1.pos_yBall;
+
+		//Movimiento pelota
+		b1.newPosBall(xBall, yBall);
+
 	}
 }

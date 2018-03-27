@@ -99,13 +99,26 @@ Board::Board()
 	}
 
 	//POS INICIAL JUGADOR
-	pos_x = num_columns-3;
+	pos_x = num_columns - 3;
 	pos_y = num_rows / 2;
 
 	//JUGADOR
 	p[pos_x][pos_y] = '-';
 	p[pos_x][pos_y+1] = '-';
 	p[pos_x][pos_y+2] = '-';
+
+	//POS INICIAL PELOTA
+	pos_xBall = num_columns - 5;
+	pos_yBall = num_rows / 2;
+
+	//Ball
+	p[pos_xBall][pos_yBall] = '*';
+
+	//Colisiones
+	izquierda = false;
+	abajo = false;
+	derecha = false;
+	arriba = false;
 }
 
 void Board::printTablero()
@@ -127,6 +140,10 @@ void Board::printTablero()
 			else if (p[i][j] == '@')
 			{
 				SetConsoleTextAttribute(color, 9);
+			}
+			else if (p[i][j] == '*')
+			{
+				SetConsoleTextAttribute(color, 4);
 			}
 			std::cout << p[i][j];
 		}
@@ -159,7 +176,89 @@ void Board::newPosRight()
 
 }
 
+void Board::newPosBall(int x, int y)
+{
 
+	//NEWSPACE
+	p[pos_xBall][pos_yBall] = ' ';
+
+	if (y - 1 <= 0) 
+	{
+		izquierda = true;
+
+		//Resetamos bools
+		derecha = false;
+		arriba = false;
+		abajo = false;
+	}
+	else if (x - 1 <= 0)
+	{
+		arriba = true;
+
+		//Resetamos bools
+		derecha = false;
+		izquierda = false;
+		abajo = false;
+	}
+	else if (y + 1 >= (num_columns-1))
+	{
+		derecha = true;
+
+		//Resetamos bools
+		arriba = false;
+		izquierda = false;
+		abajo = false;
+	}
+	else if ((x + 1 >= pos_x) && (y - 1 == pos_y))
+	{
+		abajo = true;
+
+		//Resetamos bools
+		arriba = false;
+		izquierda = false;
+		derecha = false;
+	}
+
+	if (izquierda == true)
+	{
+		//Cambiamos velocidad
+		pos_yBall++;
+		pos_xBall--;
+	}
+	else if (arriba == true)
+	{
+		//Cambiamos velocidad
+		pos_yBall++;
+		pos_xBall++;
+	}
+	else if (derecha == true)
+	{
+		//Cambiamos velocidad
+		pos_yBall--;
+		pos_xBall++;
+	}
+	else if (abajo == true)
+	{
+		pos_yBall--;
+		pos_xBall--;
+	}
+	else
+	{
+		pos_yBall--;
+		pos_xBall--;
+	}
+
+
+	std::cout << "Ball Y:" << y << std::endl;
+	std::cout << "Ball X:" << x << std::endl;
+	std::cout << "Player X: " << pos_x << std::endl;
+	std::cout << "Player Y: " << pos_y << std::endl;
+	
+	//AÑADIMOS AL TABLERO
+	p[pos_xBall][pos_yBall] = '*';
+
+
+}
 
 Board::~Board()
 {
