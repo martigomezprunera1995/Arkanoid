@@ -106,14 +106,14 @@ Board::Board()
 
 	//POS INICIAL PELOTA
 	pos_xBall = num_columns - 5;
-	pos_yBall = rand() % (num_rows / 2) ;
+	pos_yBall = rand() % ((num_rows / 2) + 1) ;
 
 	//Ball
 	p[pos_xBall][pos_yBall] = '*';
 
 	//Colisiones
 	izquierda = false;
-	abajo = false;
+	abajo = true;
 	derecha = false;
 	arriba = false;
 }
@@ -151,25 +151,64 @@ void Board::printTablero()
 void Board::newPosLeft()
 {
 	//NEWPOS
-	p[pos_x][pos_y - 1] = '-';
+	if (pos_y - 1 <= 0)
+	{
+		//SI HA LLEGADO AL LÍMITE DEL MAPA
+		p[pos_x][num_columns - 2] = '-';
+		p[pos_x][num_columns - 3] = '-';
+		p[pos_x][num_columns - 4] = '-';
 
-	//NEWSPACE
-	p[pos_x][pos_y + 2] = ' ';
+		//NEWSPACE
+		p[pos_x][pos_y] = ' ';
+		p[pos_x][pos_y + 1] = ' ';
+		p[pos_x][pos_y + 2] = ' ';
 
-	//RESETEAMOS VARIABLES
-	pos_y--;
+		//RESTEAMOS VARIABLES
+		pos_y = num_columns - 4;
+	}
+	else
+	{
+		//SI NO HA LLEGADO AL LÍMITE DEL MAPA
+		p[pos_x][pos_y - 1] = '-';
+		//NEWSPACE
+		p[pos_x][pos_y + 2] = ' ';
+
+		//RESETEAMOS VARIABLES
+		pos_y--;
+	}
+
 }
 
 void Board::newPosRight()
 {
-	//NEWPOS
-	p[pos_x][pos_y + 3] = '-';
 
-	//NEWSPACE
-	p[pos_x][pos_y] = ' ';
+	if (pos_y + 2 >= (num_columns - 2))
+	{
+		//SI HA LLEGADO AL LÍMITE DEL MAPA
+		p[pos_x][1] = '-';
+		p[pos_x][2] = '-';
+		p[pos_x][3] = '-';
 
-	//RESETEAMOS VARIABLES
-	pos_y++;
+		//NEWSPACE
+		p[pos_x][num_columns - 2] = ' ';
+		p[pos_x][num_columns - 3] = ' ';
+		p[pos_x][num_columns - 4] = ' ';
+
+		//RESTEAMOS VARIABLES
+		pos_y = 1;
+	}
+	else
+	{
+		//SI NO HA LLEGADO AL LÍMITE DEL MAPA
+		p[pos_x][pos_y + 3] = '-';
+
+		//NEWSPACE
+		p[pos_x][pos_y] = ' ';
+
+		//RESETEAMOS VARIABLES
+		pos_y++;
+	}
+	
 
 }
 
@@ -271,12 +310,11 @@ void Board::newPosBall(int x, int y)
 	}
 	else
 	{
-		pos_yBall--;
-		pos_xBall--;
+		exit(0);
 	}
 
-	std::cout << "Ball Y:" << y << std::endl;
-	std::cout << "Ball X:" << x << std::endl;
+	/*std::cout << "Ball Y:" << y << std::endl;
+	std::cout << "Ball X:" << x << std::endl;*/
 	std::cout << "Player X: " << pos_x << std::endl;
 	std::cout << "Player Y: " << pos_y << std::endl;
 	
