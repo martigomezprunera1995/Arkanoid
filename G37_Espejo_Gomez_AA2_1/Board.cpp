@@ -209,14 +209,35 @@ void Board::newPosBall(int x, int y)
 		izquierda = false;
 		abajo = false;
 	}
-	else if ((x + 1 >= pos_x) && (y - 1 == pos_y))
+	else if ((x + 1 >= pos_x))
 	{
-		abajo = true;
+		if ((y == pos_y  +1))
+		{
+			abajo = true;
 
-		//Resetamos bools
-		arriba = false;
-		izquierda = false;
-		derecha = false;
+			//Resetamos bools
+			arriba = false;
+			izquierda = false;
+			derecha = false;
+		}
+		else if (y == pos_y + 2)
+		{
+			abajo = true;
+
+			//Resetamos bools
+			arriba = false;
+			izquierda = false;
+			derecha = false;
+		}
+		else if (y == pos_y + 3)
+		{
+			abajo = true;
+
+			//Resetamos bools
+			arriba = false;
+			izquierda = false;
+			derecha = false;
+		}
 	}
 
 	if (izquierda == true)
