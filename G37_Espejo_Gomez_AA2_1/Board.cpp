@@ -9,9 +9,6 @@ Board::Board()
 	std::string num_columnsS;
 	std::string bloquesS;
 
-	//Int
-	int bloques;
-
 	//Contador para las variables
 	int counter = 0;
 
@@ -180,8 +177,16 @@ void Board::newPosBall(int x, int y)
 {
 
 	//NEWSPACE
-	p[pos_xBall][pos_yBall] = ' ';
+	if (pos_xBall > bloques)
+	{
+		p[pos_xBall][pos_yBall] = ' ';
+	}
+	else
+	{
+		p[pos_xBall][pos_yBall] = '@';
+	}
 
+	//CONTROL CHOQUES
 	if (y - 1 <= 0) 
 	{
 		izquierda = true;
@@ -211,7 +216,7 @@ void Board::newPosBall(int x, int y)
 	}
 	else if ((x + 1 >= pos_x))
 	{
-		if ((y == pos_y  +1))
+		if ((y == pos_y + 1))
 		{
 			abajo = true;
 
@@ -240,6 +245,7 @@ void Board::newPosBall(int x, int y)
 		}
 	}
 
+	//NUEVA VELOCIDAD
 	if (izquierda == true)
 	{
 		//Cambiamos velocidad
@@ -268,7 +274,6 @@ void Board::newPosBall(int x, int y)
 		pos_yBall--;
 		pos_xBall--;
 	}
-
 
 	std::cout << "Ball Y:" << y << std::endl;
 	std::cout << "Ball X:" << x << std::endl;

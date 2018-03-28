@@ -16,6 +16,9 @@ public:
 	int num_rows;
 	int num_columns;
 
+	//Linea de bloques
+	int bloques;
+
 	//Player
 	int pos_x;
 	int pos_y;
