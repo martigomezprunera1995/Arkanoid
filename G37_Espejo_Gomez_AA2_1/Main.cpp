@@ -2,6 +2,9 @@
 
 void main()
 {
+	//RANDOM IN TIME
+	srand(time(NULL));
+
 	//Creacion del board
 	Board b1;
 

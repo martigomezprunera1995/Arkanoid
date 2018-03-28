@@ -106,7 +106,7 @@ Board::Board()
 
 	//POS INICIAL PELOTA
 	pos_xBall = num_columns - 5;
-	pos_yBall = num_rows / 2;
+	pos_yBall = rand() % (num_rows / 2) ;
 
 	//Ball
 	p[pos_xBall][pos_yBall] = '*';
