@@ -244,7 +244,7 @@ void Board::newPosBall(int x, int y)
 		izquierda = false;
 		abajo = false;
 	}
-	else if (y + 1 >= (num_columns-1))
+	else if (y + 1 >= (num_columns - 1))
 	{
 		derecha = true;
 
@@ -283,6 +283,10 @@ void Board::newPosBall(int x, int y)
 			derecha = false;
 		}
 	}
+	else if (x - 1 >= (num_columns))
+	{ 
+		exit(0);
+	}
 
 	//NUEVA VELOCIDAD
 	if (izquierda == true)
@@ -308,15 +312,12 @@ void Board::newPosBall(int x, int y)
 		pos_yBall--;
 		pos_xBall--;
 	}
-	else
-	{
-		exit(0);
-	}
 
-	/*std::cout << "Ball Y:" << y << std::endl;
-	std::cout << "Ball X:" << x << std::endl;*/
-	std::cout << "Player X: " << pos_x << std::endl;
-	std::cout << "Player Y: " << pos_y << std::endl;
+
+	std::cout << "Ball Y:" << y << std::endl;
+	std::cout << "Ball X:" << x << std::endl;
+	std::cout << "Player X: " << num_rows << std::endl;
+	/*std::cout << "Player Y: " << pos_y << std::endl;*/
 	
 	//AÑADIMOS AL TABLERO
 	p[pos_xBall][pos_yBall] = '*';
