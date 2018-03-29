@@ -108,6 +108,10 @@ Board::Board()
 	pos_xBall = num_columns - 5;
 	pos_yBall = rand() % ((num_rows / 2) + 1) ;
 
+	//LASPOSITION
+	auxLeft = 0;
+	auxRight = 0;
+
 	//Ball
 	p[pos_xBall][pos_yBall] = '*';
 
@@ -150,33 +154,42 @@ void Board::printTablero()
 
 void Board::newPosLeft()
 {
-	//NEWPOS
 	if (pos_y - 1 <= 0)
 	{
-		//SI HA LLEGADO AL LÍMITE DEL MAPA
-		p[pos_x][num_columns - 2] = '-';
-		p[pos_x][num_columns - 3] = '-';
-		p[pos_x][num_columns - 4] = '-';
-
 		//NEWSPACE
-		p[pos_x][pos_y] = ' ';
-		p[pos_x][pos_y + 1] = ' ';
-		p[pos_x][pos_y + 2] = ' ';
+		p[pos_x][1] = ' ';
 
 		//RESTEAMOS VARIABLES
-		pos_y = num_columns - 4;
+		pos_y = num_columns - 2;
+
+		//SEGUNDA ITERACION
+		auxLeft++;
+	}
+	else if (auxLeft == 1)
+	{
+		//NEWSPACE
+		p[pos_x][3] = ' ';
+		//TERCERA ITERACION
+		auxLeft++;
+	}
+	else if (auxLeft == 2)
+	{
+		//NEWSPACE
+		p[pos_x][2] = ' ';
+		//VUELTA AL INICIO
+		auxLeft =0;
 	}
 	else
 	{
-		//SI NO HA LLEGADO AL LÍMITE DEL MAPA
-		p[pos_x][pos_y - 1] = '-';
 		//NEWSPACE
 		p[pos_x][pos_y + 2] = ' ';
-
-		//RESETEAMOS VARIABLES
-		pos_y--;
 	}
 
+	//SI NO HA LLEGADO AL LÍMITE DEL MAPA
+	p[pos_x][pos_y - 1] = '-';
+
+	//RESETEAMOS VARIABLES
+	pos_y--;
 }
 
 void Board::newPosRight()
@@ -184,31 +197,36 @@ void Board::newPosRight()
 
 	if (pos_y + 2 >= (num_columns - 2))
 	{
-		//SI HA LLEGADO AL LÍMITE DEL MAPA
-		p[pos_x][1] = '-';
-		p[pos_x][2] = '-';
-		p[pos_x][3] = '-';
-
 		//NEWSPACE
 		p[pos_x][num_columns - 2] = ' ';
-		p[pos_x][num_columns - 3] = ' ';
-		p[pos_x][num_columns - 4] = ' ';
 
 		//RESTEAMOS VARIABLES
-		pos_y = 1;
+		pos_y = -2;
+
+		auxRight++;
+	}
+	else if (auxRight == 1)
+	{
+		//NEWSPACE
+		p[pos_x][num_columns - 4] = ' ';
+		auxRight++;
+	}
+	else if (auxRight == 2)
+	{
+		//NEWSPACE
+		p[pos_x][num_columns - 3] = ' ';
+		auxRight = 0;
 	}
 	else
 	{
-		//SI NO HA LLEGADO AL LÍMITE DEL MAPA
-		p[pos_x][pos_y + 3] = '-';
-
 		//NEWSPACE
 		p[pos_x][pos_y] = ' ';
-
-		//RESETEAMOS VARIABLES
-		pos_y++;
 	}
-	
+
+	//SI NO HA LLEGADO AL LÍMITE DEL MAPA
+	p[pos_x][pos_y + 3] = '-';
+	//RESETEAMOS VARIABLES
+	pos_y++;
 
 }
 
@@ -312,17 +330,9 @@ void Board::newPosBall(int x, int y)
 		pos_yBall--;
 		pos_xBall--;
 	}
-
-
-	std::cout << "Ball Y:" << y << std::endl;
-	std::cout << "Ball X:" << x << std::endl;
-	std::cout << "Player X: " << num_rows << std::endl;
-	/*std::cout << "Player Y: " << pos_y << std::endl;*/
 	
 	//AÑADIMOS AL TABLERO
 	p[pos_xBall][pos_yBall] = '*';
-
-
 }
 
 Board::~Board()

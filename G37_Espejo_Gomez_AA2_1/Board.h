@@ -34,6 +34,12 @@ public:
 	bool abajo;
 	bool izquierda;
 
+	//AUXILIARES (por si acaso)
+	//LastPositionLeft
+	int auxLeft;
+	//LastPositionRight
+	int auxRight;
+
 	//Functions
 	void printTablero();
 	void newPosLeft();
