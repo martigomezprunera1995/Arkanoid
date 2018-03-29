@@ -301,9 +301,9 @@ void Board::newPosBall(int x, int y)
 			derecha = false;
 		}
 	}
-	else if (x - 1 >= (num_columns))
+	else if (x + 1 >= (num_rows - 1))
 	{ 
-		exit(0);
+		system("pause");
 	}
 
 	//NUEVA VELOCIDAD
@@ -333,6 +333,9 @@ void Board::newPosBall(int x, int y)
 	
 	//AÑADIMOS AL TABLERO
 	p[pos_xBall][pos_yBall] = '*';
+
+	std::cout << x << std::endl;
+	std::cout << num_rows - 1 << std::endl;
 }
 
 Board::~Board()
